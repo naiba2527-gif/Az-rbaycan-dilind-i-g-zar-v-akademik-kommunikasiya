@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ünsiyyət və Kommunikasiya | Canlı Oyun Kartları</title>
+<style>
+:root{
+  --ink:#17324d;--purple:#6c3eb8;--blue:#1976d2;--teal:#009688;
+  --orange:#f57c00;--pink:#d6336c;--green:#2e7d32;--bg:#f4f7fb;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:
+radial-gradient(circle at 10% 10%,#e7ddff 0,transparent 28%),
+radial-gradient(circle at 90% 15%,#d8f5ff 0,transparent 28%),var(--bg);color:var(--ink)}
+.app{max-width:920px;margin:auto;padding:28px 18px 42px}
+header{text-align:center;background:#fff;border-radius:28px;padding:26px 20px;
+box-shadow:0 12px 35px #18314a18;border:1px solid #e8edf5}
+.badge{display:inline-block;background:#fff0cc;color:#9a5b00;padding:7px 14px;border-radius:99px;font-weight:700}
+h1{margin:12px 0 8px;font-size:clamp(26px,5vw,44px)}
+.subtitle{margin:0;color:#5b6b7a;font-size:17px}
+.topbar{display:flex;gap:12px;align-items:center;margin:20px 0}
+.progress-wrap{flex:1;height:14px;background:#e5ebf2;border-radius:99px;overflow:hidden}
+#progress{height:100%;width:10%;background:linear-gradient(90deg,var(--purple),var(--pink),var(--orange));transition:.4s}
+.score{background:#17324d;color:#fff;padding:10px 15px;border-radius:14px;font-weight:700;white-space:nowrap}
+.card{background:#fff;border-radius:30px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 45px #18314a1a;min-height:500px;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-70px;background:var(--accent);opacity:.12}
+.card-head{display:flex;align-items:center;gap:14px;position:relative}
+.number{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-size:26px;font-weight:800;box-shadow:0 8px 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.type{font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.7px}
+h2{font-size:clamp(24px,4vw,34px);margin:28px 0 12px}
+.question{font-size:20px;line-height:1.55;margin-bottom:24px}
+.options{display:grid;gap:12px}
+.option{width:100%;text-align:left;border:2px solid #e4eaf1;background:#fff;padding:17px 18px;border-radius:17px;font-size:17px;cursor:pointer;transition:.2s}
+.option:hover{transform:translateY(-2px);border-color:var(--accent);background:#faf8ff}
+.option.correct{background:#eaf8ee;border-color:#46a35a}.option.wrong{background:#fff0f0;border-color:#d95c5c}
+.feedback{margin-top:18px;padding:15px 17px;border-radius:15px;background:#f2f6fb;display:none;line-height:1.5}
+.feedback.show{display:block}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:25px;gap:10px}
+.btn{border:0;border-radius:14px;padding:13px 22px;font-size:16px;font-weight:700;cursor:pointer}
+.next{background:var(--accent);color:#fff}.next:disabled{opacity:.45;cursor:not-allowed}
+.hint{color:#6c7785;font-size:14px}
+.finish{text-align:center;padding:35px 10px}.finish .trophy{font-size:70px}
+footer{text-align:center;color:#607080;margin-top:18px;font-size:14px}
+@media(max-width:600px){.card{min-height:540px}.topbar{align-items:stretch;flex-direction:column}.score{text-align:center}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="badge">🎓 İnteraktiv tədris oyunu</div>
+<h1>Ünsiyyət və kommunikasiyanın fərqi</h1>
+<p class="subtitle">10 canlı oyun kartı • Cavab ver • Xal topla • Öyrən</p>
+</header>
+
+<div class="topbar">
+<div class="progress-wrap"><div id="progress"></div></div>
+<div class="score">🏆 Xal: <span id="score">0</span></div>
+</div>
+
+<main id="game"></main>
+<footer>Azərbaycan dilində işgüzar və akademik kommunikasiya</footer>
+</div>
+
+<script>
+const cards=[
+{type:"Anlayışı tap",accent:"#6c3eb8",q:"İnsanlar arasında fikir, hiss və münasibətlərin qarşılıqlı ifadəsi nə adlanır?",o:["Ünsiyyət","Sənədləşmə","Kodlaşdırma"],a:0,e:"Ünsiyyət insanlar arasında sosial və psixoloji qarşılıqlı əlaqəni əhatə edir."},
+{type:"Məlumatın yolu",accent:"#009688",q:"Məlumatın göndəricidən alıcıya müxtəlif vasitələrlə ötürülməsi hansı anlayışdır?",o:["Kommunikasiya","Yalnız söhbət","Müşahidə"],a:0,e:"Kommunikasiya məlumatın müəyyən kanal və vasitələrlə ötürülməsi prosesidir."},
+{type:"Fərqi seç",accent:"#f57c00",q:"Doğru fikri seçin.",o:["Ünsiyyət yalnız texniki vasitələrlə həyata keçirilir.","Kommunikasiya məlumat mübadiləsi prosesini əhatə edir.","Ünsiyyət və kommunikasiya tamamilə eyni anlayışdır."],a:1,e:"Kommunikasiya informasiya mübadiləsini və bu prosesin vasitələrini əhatə edir."},
+{type:"Situasiya",accent:"#d6336c",q:"Müəllim tələbəyə elektron poçt vasitəsilə məlumat göndərir. Burada daha çox hansı proses ön plandadır?",o:["Kommunikasiya","Ünsiyyət","Heç biri"],a:0,e:"E-poçt məlumatın texniki kanal vasitəsilə ötürülməsinə nümunədir."},
+{type:"Qarşılıqlı əlaqə",accent:"#1976d2",q:"İki tələbə görüşərək fikirlərini, hisslərini və münasibətlərini bölüşür. Bu nümunə daha çox hansına aiddir?",o:["Ünsiyyət","Yalnız yazılı kommunikasiya","Sənədləşmə"],a:0,e:"Birbaşa fikir və hiss mübadiləsi ünsiyyətin əsas xüsusiyyətidir."},
+{type:"Kanalı tap",accent:"#2e7d32",q:"Aşağıdakılardan hansı kommunikasiya kanalıdır?",o:["E-poçt","Mimika","Səs tonu"],a:0,e:"E-poçt məlumatın ötürülməsi üçün istifadə olunan kommunikasiya kanalıdır."},
+{type:"Doğru, yoxsa yanlış?",accent:"#1976d2",q:"Kommunikasiya yalnız şifahi danışıqdan ibarətdir.",o:["Doğru","Yanlış"],a:1,e:"Kommunikasiya şifahi, yazılı, vizual və elektron formalarda həyata keçirilə bilər."},
+{type:"Fərqi tap",accent:"#6c3eb8",q:"Hansı nümunədə kommunikasiya vasitəsi daha aydın görünür?",o:["Dostla hissləri bölüşmək","SMS vasitəsilə məlumat göndərmək","Bir-birinə baxmaq"],a:1,e:"SMS konkret texniki kommunikasiya vasitəsidir."},
+{type:"5 saniyəlik çağırış",accent:"#e65100",q:"Aşağıdakılardan hansında həm ünsiyyət, həm də kommunikasiya birlikdə baş verir?",o:["İş görüşündə sual vermək və cavab almaq","Boş otaqda tək oturmaq","Bağlı kitabı masaya qoymaq"],a:0,e:"İş görüşündə insanlar həm sosial qarşılıqlı əlaqə qurur, həm də məlumat mübadiləsi edirlər."},
+{type:"Yekun kart",accent:"#00897b",q:"Ünsiyyət və kommunikasiya arasındakı əsas fərqi ən düzgün ifadə edən cavabı seçin.",o:["Ünsiyyət daha geniş qarşılıqlı sosial əlaqədir, kommunikasiya isə məlumatın ötürülməsi prosesidir.","Hər iki anlayış yalnız telefonla danışmaq deməkdir.","Kommunikasiya insan münasibətlərini tamamilə əvəz edir."],a:0,e:"Əla! Ünsiyyət daha geniş qarşılıqlı əlaqəni, kommunikasiya isə informasiya ötürülməsi prosesini vurğulayır."}
+];
+let index=0,score=0,answered=false;
+const game=document.getElementById("game");
+function render(){
+ if(index===cards.length){finish();return}
+ const c=cards[index]; answered=false;
+ document.getElementById("progress").style.width=((index+1)/cards.length*100)+"%";
+ game.innerHTML=`<section class="card" style="--accent:${c.accent}">
+ <div class="card-head"><div class="number">${index+1}</div><div class="type">${c.type}</div></div>
+ <h2>🎴 Oyun kartı ${index+1}</h2>
+ <div class="question">${c.q}</div>
+ <div class="options">${c.o.map((x,i)=>`<button class="option" onclick="answer(${i})">${String.fromCharCode(65+i)}) ${x}</button>`).join("")}</div>
+ <div id="feedback" class="feedback"></div>
+ <div class="actions"><span class="hint">Düzgün cavab: +10 xal</span><button id="next" class="btn next" disabled onclick="next()">Növbəti kart ➜</button></div>
+ </section>`;
+}
+function answer(i){
+ if(answered)return; answered=true;
+ const c=cards[index], buttons=[...document.querySelectorAll(".option")];
+ buttons.forEach((b,n)=>{b.disabled=true;if(n===c.a)b.classList.add("correct");if(n===i&&i!==c.a)b.classList.add("wrong")});
+ const ok=i===c.a;if(ok)score+=10;
+ document.getElementById("score").textContent=score;
+ const f=document.getElementById("feedback"); f.className="feedback show";
+ f.innerHTML=(ok?"🎉 <b>Doğru cavab!</b> ":"💡 <b>Bir daha düşün!</b> ")+c.e;
+ document.getElementById("next").disabled=false;
+ if(index===cards.length-1)document.getElementById("next").textContent="Nəticəni gör 🏆";
+}
+function next(){index++;render()}
+function finish(){
+ document.getElementById("progress").style.width="100%";
+ const msg=score===100?"Mükəmməl! Mövzunu çox yaxşı mənimsəmisiniz.":score>=70?"Çox yaxşı nəticə! Əsas anlayışları düzgün fərqləndirirsiniz.":"Yaxşı başlanğıcdır! Kartları yenidən oynayaraq nəticəni yüksəldə bilərsiniz.";
+ game.innerHTML=`<section class="card finish" style="--accent:#6c3eb8"><div class="trophy">🏆</div><h2>Oyun tamamlandı!</h2><p class="question">Sizin nəticəniz: <b>${score} / 100 xal</b></p><p>${msg}</p><button class="btn next" onclick="restart()">🔄 Yenidən oyna</button></section>`;
+}
+function restart(){index=0;score=0;document.getElementById("score").textContent=0;render()}
+render();
+</script>
+</body>
+</html>
