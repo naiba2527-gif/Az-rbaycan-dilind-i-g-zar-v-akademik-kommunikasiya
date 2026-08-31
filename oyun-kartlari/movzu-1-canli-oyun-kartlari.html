@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mövzu 1 | Canlı Oyun Kartları</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef2ff,#fdf2f8);color:#172033;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:28px 18px}.hero{text-align:center;margin-bottom:20px}.hero h1{font-size:32px;margin:5px}.hero p{font-size:17px}.score{display:flex;justify-content:space-between;gap:10px;background:white;border-radius:16px;padding:14px 18px;box-shadow:0 8px 25px #0001;margin-bottom:18px}.card{background:white;border-radius:24px;min-height:410px;padding:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 15px 40px #0002}.num{font-weight:bold;font-size:15px;margin-bottom:14px}.icon{font-size:52px}.q{font-size:25px;font-weight:700;line-height:1.35;max-width:760px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:760px;margin-top:22px}.answers button,.next,.restart{border:0;border-radius:14px;padding:15px;font-size:16px;cursor:pointer;font-weight:600;background:#eef2ff}.answers button:hover,.next:hover,.restart:hover{transform:translateY(-1px)}.feedback{min-height:70px;margin-top:18px;font-size:18px;font-weight:700}.next,.restart{margin-top:8px;background:#172033;color:white}.hidden{display:none}.result{font-size:25px;font-weight:bold}.small{opacity:.75;font-size:14px}@media(max-width:650px){.answers{grid-template-columns:1fr}.q{font-size:21px}.card{padding:24px;min-height:480px}}
+</style></head>
+<body><div class="wrap">
+<div class="hero"><div class="small">Azərbaycan dilində işgüzar və akademik kommunikasiya</div><h1>🎯 MÖVZU 1: CANLI OYUN</h1><p>Fənnin predmeti, məqsədi və vəzifələri</p></div>
+<div class="score"><span>🃏 Kart: <b id="count">1/10</b></span><span>⭐ Xal: <b id="score">0</b></span></div>
+<div class="card"><div class="num" id="type">SUAL</div><div class="icon" id="icon">🎓</div><div class="q" id="question"></div><div class="answers" id="answers"></div><div class="feedback" id="feedback"></div><button class="next hidden" id="next">Növbəti kart ➜</button><div class="result hidden" id="result"></div><button class="restart hidden" id="restart">🔄 Yenidən oyna</button></div>
+</div>
+<script>
+const cards=[
+{q:'“Azərbaycan dilində işgüzar və akademik kommunikasiya” fənninin əsas məqsədi hansıdır?',a:['Yalnız orfoqrafiya qaydalarını öyrətmək','İşgüzar və akademik mühitdə düzgün, səlis və məqsədyönlü kommunikasiya bacarıqları formalaşdırmaq','Yalnız şifahi nitqi inkişaf etdirmək','Yalnız sənəd nümunələrini əzbərlətmək'],c:1,i:'🎯'},
+{q:'Fənnin predmetinə hansı sahə daha çox daxildir?',a:['İşgüzar və akademik ünsiyyətin nəzəri və praktik əsasları','Yalnız bədii ədəbiyyat','Yalnız riyazi hesablamalar','Yalnız xarici dil'],c:0,i:'📚'},
+{q:'Doğru, yoxsa yanlış? “Akademik yazı yalnız fikri yazmaqdan ibarətdir.”',a:['Doğru','Yanlış'],c:1,i:'✍️'},
+{q:'Hansını işgüzar sənəd nümunəsi hesab etmək olar?',a:['Ərizə','Nağıl','Tapmaca','Şeir'],c:0,i:'📄'},
+{q:'Fənnin vəzifələrindən biri hansıdır?',a:['Nitq və yazı mədəniyyətini inkişaf etdirmək','Tələbəni yalnız əzbərləməyə yönəltmək','Yalnız sürətli oxumağı öyrətmək','Yazılı kommunikasiyanı azaltmaq'],c:0,i:'🧠'},
+{q:'KLASTER TAPŞIRIĞI: “Kommunikasiya” sözünü eşidəndə hansı anlayışlar daha uyğun gəlir?',a:['Məlumat, fikir, qarşılıqlı əlaqə, dil','Yalnız rəqəmlər','Yalnız idman','Yalnız musiqi'],c:0,i:'🕸️'},
+{q:'İşgüzar kommunikasiyada etik davranışın əsas göstəricilərindən biri hansıdır?',a:['Nəzakət və qarşı tərəfə hörmət','Sözünü kəsmək','Məlumatı qəsdən qeyri-dəqiq vermək','Rəsmi yazıda emosional ifadələri həddən artıq artırmaq'],c:0,i:'🤝'},
+{q:'Akademik kommunikasiya üçün hansı xüsusiyyət daha xarakterikdir?',a:['Məntiqilik, əsaslandırma və elmi üsluba uyğunluq','Qeyri-müəyyən və sübutsuz fikir','Yalnız danışıq dili','Məlumatın mənbəsiz təqdimatı'],c:0,i:'🔬'},
+{q:'Situasiya: Tələbə müəllimə rəsmi e-poçt göndərir. Hansı yanaşma daha düzgündür?',a:['Mövzu sətrini yazmaq, müraciət və nəzakətli üslubdan istifadə etmək','Yalnız “Salam” yazıb fayl göndərmək','Bütün mətni böyük hərflərlə yazmaq','Məktubu emojisiz mümkün qədər anlaşılmaz etmək'],c:0,i:'📧'},
+{q:'YEKUN: Bu fənni öyrənməyin praktik nəticəsi nədir?',a:['Daha düzgün, məqsədli və peşəkar işgüzar və akademik kommunikasiya qurmaq','Yalnız daha çox termin əzbərləmək','Yalnız sürətli danışmaq','Yalnız uzun mətn yazmaq'],c:0,i:'🏆'}
+];
+let n=0,score=0,answered=false;const $=id=>document.getElementById(id);
+function render(){answered=false;$('count').textContent=`${n+1}/${cards.length}`;$('score').textContent=score;$('feedback').textContent='';$('next').classList.add('hidden');$('result').classList.add('hidden');$('restart').classList.add('hidden');$('type').textContent=n===5?'KLASTER TAPŞIRIĞI':n===9?'YEKUN SUAL':'SUAL';$('icon').textContent=cards[n].i;$('question').textContent=cards[n].q;$('answers').innerHTML='';cards[n].a.forEach((x,k)=>{let b=document.createElement('button');b.textContent=x;b.onclick=()=>answer(k,b);$('answers').appendChild(b)})}
+function answer(k,b){if(answered)return;answered=true;let ok=k===cards[n].c;document.querySelectorAll('.answers button').forEach(x=>x.disabled=true);if(ok){score+=10;$('score').textContent=score;$('feedback').textContent='✅ Düzgündür! +10 xal'}else{$('feedback').textContent='❌ Düzgün cavab: '+cards[n].a[cards[n].c]}$('next').classList.remove('hidden');}
+$('next').onclick=()=>{n++;if(n<cards.length)render();else finish()};function finish(){$('count').textContent='10/10';$('type').textContent='🎉 OYUN BİTDİ';$('icon').textContent='🏆';$('question').textContent='Təbriklər! Mövzu 1 üzrə oyunu tamamladınız.';$('answers').innerHTML='';$('feedback').textContent='';$('result').textContent=`Nəticəniz: ${score} / 100 xal`;$('result').classList.remove('hidden');$('restart').classList.remove('hidden');$('next').classList.add('hidden')}$('restart').onclick=()=>{n=0;score=0;render()};render();
+</script></body></html>
