@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mövzu 3 | Kommunikasiyanın tipləri | 25 canlı oyun kartı</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef2ff,#fff7ed,#ecfeff);color:#172033;min-height:100vh}.wrap{max-width:1050px;margin:auto;padding:24px}.top{background:#fff;border-radius:26px;padding:24px;box-shadow:0 12px 35px #0001;text-align:center}.top h1{margin:0 0 8px;font-size:30px;color:#263c9c}.top p{margin:5px;color:#526070}.bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}.pill{padding:9px 15px;border-radius:999px;background:#eef2ff;font-weight:700}.game{margin-top:20px;background:#fff;border-radius:26px;padding:25px;box-shadow:0 12px 35px #0001}.cardno{font-weight:800;color:#64748b}.type{display:inline-block;margin:8px 0;padding:7px 12px;border-radius:10px;background:#fef3c7;font-weight:700}.q{font-size:24px;line-height:1.35;margin:12px 0 20px}.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.ans{border:2px solid #dbe3f0;background:#f8fafc;border-radius:15px;padding:15px;font-size:17px;cursor:pointer;text-align:left;transition:.2s}.ans:hover{transform:translateY(-2px);border-color:#7c8cf8}.ans.correct{background:#dcfce7;border-color:#22c55e}.ans.wrong{background:#fee2e2;border-color:#ef4444}.result{min-height:30px;margin-top:15px;font-weight:800;font-size:18px}.controls{display:flex;justify-content:space-between;gap:10px;margin-top:20px}.btn{border:0;border-radius:14px;padding:13px 20px;font-size:16px;font-weight:800;cursor:pointer;background:#3346b8;color:white}.btn.secondary{background:#e2e8f0;color:#172033}.progress{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:18px}.fill{height:100%;width:4%;background:#3346b8;transition:.3s}.score{text-align:center;margin-top:18px;font-size:19px;font-weight:800}.tip{margin-top:18px;padding:14px;border-radius:15px;background:#f1f5f9;color:#475569}.hidden{display:none}@media(max-width:700px){.answers{grid-template-columns:1fr}.q{font-size:20px}.wrap{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<h1>🎯 MÖVZU 3: KOMMUNİKASİYANIN TİPLƏRİ</h1>
+<p>Verbal və qeyri-verbal kommunikasiya üzrə 25 canlı oyun kartı</p>
+<div class="bar"><span class="pill">🗣️ Verbal</span><span class="pill">👀 Qeyri-verbal</span><span class="pill">🎭 Bədən dili</span><span class="pill">🏆 25 kart</span></div>
+</header>
+<section class="game">
+<div class="cardno" id="cardNo">KART 1 / 25</div>
+<div class="type" id="type">Sürətli seçim</div>
+<div class="q" id="question"></div>
+<div class="answers" id="answers"></div>
+<div class="result" id="result"></div>
+<div class="progress"><div class="fill" id="fill"></div></div>
+<div class="controls"><button class="btn secondary" id="prev">← Əvvəlki</button><button class="btn" id="next">Növbəti →</button></div>
+<div class="score" id="score">Xal: 0 / 0</div>
+<div class="tip">💡 Qayda: Cavabı seçin. Düzgün cavab yaşıl, səhv cavab qırmızı göstərilir. Sonra “Növbəti” düyməsinə keçin.</div>
+</section>
+</div>
+<script>
+const cards=[
+['Sürətli seçim','Kommunikasiyanın əsas iki tipi hansıdır?',['Verbal və qeyri-verbal','Yazılı və rəsmi','Şifahi və akademik','Fərdi və kütləvi'],0],
+['Termin tap','“Verbal” sözü hansı mənanı verir?',['Səs','Söz','Hərəkət','Məsafə'],1],
+['Növünü müəyyən et','Telefon danışığı hansı kommunikasiya növünə aiddir?',['Qeyri-verbal','Yalnız jest','Verbal, şifahi','Proksemik'],2],
+['Növünü müəyyən et','E-mail ilə göndərilən məlumat hansı növdür?',['Verbal, yazılı','Qeyri-verbal','Yalnız mimika','Kinestik'],0],
+['Doğru / yanlış','Yazılı nitq görmə vasitəsilə qavranılır.',['Doğru','Yanlış'],0],
+['Doğru / yanlış','Qeyri-verbal kommunikasiya yalnız danışıqdan ibarətdir.',['Doğru','Yanlış'],1],
+['Bədən dili','Əllərin və qolların hərəkətləri nə adlanır?',['Jestlər','Mimika','Xronemika','Proksemika'],0],
+['Bədən dili','Üz ifadələri ilə emosiyaların çatdırılması nədir?',['Jest','Mimika','Göz kontaktı','Toxunma'],1],
+['Bədən dili','Başın yuxarı-aşağı tərpədilməsi əksər ölkələrdə nə bildirir?',['Razılıq','Qəzəb','Gecikmə','Məsafə'],0],
+['Göz kontaktı','Göz kontaktının əsas funksiyalarından biri hansıdır?',['Marağı və diqqəti göstərmək','Vaxtı ölçmək','Geyimi seçmək','Mətni yazmaq'],0],
+['Göz kontaktı','Həddən artıq göz təması nə yarada bilər?',['Təzyiq və narahatlıq','Daha çox məsafə','Yazılı nitq','Sükut qaydası'],0],
+['Paraverbal','Səs tonu, ritmi, vurğusu və həcmi hansı sahəyə aiddir?',['Paraverbal kommunikasiya','Proksemika','Xronemika','Mimika'],0],
+['Paraverbal','“Sən bunu etdin” cümləsinin fərqli tonla deyilməsi nəyi dəyişə bilər?',['Emosional mənanı','Yazı formasını','Fiziki məsafəni','Geyimi'],0],
+['Paraverbal','Danışıqda pauza əsasən nəyi gücləndirə bilər?',['Vurğu və mənanı','Geyimi','Məsafəni','Əl sıxmanı'],0],
+['Proksemika','İntim məsafə hansı aralıqdır?',['0–45 sm','45 sm–1,2 m','1,2–3,6 m','3,6 m və daha çox'],0],
+['Proksemika','Şəxsi məsafə hansı aralıqdır?',['0–45 sm','45 sm–1,2 m','1,2–3,6 m','3,6 m və daha çox'],1],
+['Proksemika','Rəsmi çıxış və təqdimatlarda hansı məsafə daha uyğundur?',['İctimai məsafə','İntim məsafə','Yalnız şəxsi məsafə','Toxunma məsafəsi'],0],
+['Xronemika','Vaxtında görüşə gəlmək nəyi ifadə edə bilər?',['Hörmət və məsuliyyət','Laqeydlik','Qapalılıq','Qəzəb'],0],
+['Xronemika','Vaxtdan istifadə və münasibətlər arasındakı əlaqəni öyrənən vasitə hansıdır?',['Xronemika','Mimika','Jest','Kinestika'],0],
+['Görünüş','Səliqəli və uyğun geyim ilk növbədə nəyə təsir edə bilər?',['İlk təəssürata','Telefon siqnalına','Mətnin uzunluğuna','Pauzanın sayına'],0],
+['Vəziyyəti tap','İş görüşündə qolları və ayaqları çarpazlamaq hansı məna verə bilər?',['Müdafiə və qapalılıq','Mütləq sevinc','Vaxtında gəlmək','Yazılı ünsiyyət'],0],
+['Vəziyyəti tap','Həmsöhbəti anladığını göstərmək üçün başla yüngül təsdiq etmək nədir?',['Qeyri-verbal siqnal','Yazılı kommunikasiya','Orfoqrafik qayda','Xronemika'],0],
+['Mədəniyyət','Bir jestin müxtəlif ölkələrdə fərqli məna verməsi nəyi göstərir?',['Qeyri-verbal kommunikasiyanın mədəni xüsusiyyətini','Yazılı nitqin üstünlüyünü','Şifahi dilin yoxluğunu','Qrammatik fərqi'],0],
+['Mədəniyyət','Başı yuxarı-aşağı tərpətmək Bolqarıstan və Albaniyada verilən nümunəyə görə nə ifadə edə bilər?',['“Yox”','“Bəli”','Salam','Təşəkkür'],0],
+['Final challenge','Söz “hər şey yaxşıdır” deyilir, amma danışanın üzü gərgindir. Hansı mesaj daha çox ziddiyyət yaradır?',['Qeyri-verbal mesaj','Yazılı mesaj','Orfoqrafiya','Məsafə'],0]
+];
+let i=0,score=0,answered=0;const q=document.getElementById('question'),a=document.getElementById('answers'),r=document.getElementById('result');
+function render(){let c=cards[i];document.getElementById('cardNo').textContent=`KART ${i+1} / ${cards.length}`;document.getElementById('type').textContent=c[0];q.textContent=c[1];a.innerHTML='';r.textContent='';c[2].forEach((x,n)=>{let b=document.createElement('button');b.className='ans';b.textContent=x;b.onclick=()=>answer(n,b);a.appendChild(b)});document.getElementById('fill').style.width=((i+1)/cards.length*100)+'%';document.getElementById('score').textContent=`Xal: ${score} / ${answered}`;document.getElementById('prev').disabled=i===0;document.getElementById('next').textContent=i===cards.length-1?'Yenidən başla →':'Növbəti →'}
+function answer(n,b){let buttons=[...a.children];buttons.forEach(x=>x.disabled=true);let correct=cards[i][3];if(n===correct){b.classList.add('correct');r.textContent='✅ Əla! Düzgün cavab.';score++}else{b.classList.add('wrong');buttons[correct].classList.add('correct');r.textContent='❌ Səhv cavab. Yaşıl variant düzgündür.'}answered++;document.getElementById('score').textContent=`Xal: ${score} / ${answered}`}
+document.getElementById('next').onclick=()=>{if(i===cards.length-1){i=0;score=0;answered=0}else i++;render()};document.getElementById('prev').onclick=()=>{if(i>0){i--;render()}};render();
+</script>
+</body></html>
