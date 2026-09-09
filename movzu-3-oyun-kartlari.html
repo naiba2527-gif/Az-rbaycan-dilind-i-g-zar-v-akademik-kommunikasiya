@@ -16,48 +16,42 @@
 <div class="bar"><span class="pill">🗣️ Verbal</span><span class="pill">👀 Qeyri-verbal</span><span class="pill">🎭 Bədən dili</span><span class="pill">🏆 25 kart</span></div>
 </header>
 <section class="game">
-<div class="cardno" id="cardNo">KART 1 / 25</div>
-<div class="type" id="type">Sürətli seçim</div>
-<div class="q" id="question"></div>
-<div class="answers" id="answers"></div>
-<div class="result" id="result"></div>
+<div class="cardno" id="cardNo">KART 1 / 25</div><div class="type" id="type"></div><div class="q" id="question"></div><div class="answers" id="answers"></div><div class="result" id="result"></div>
 <div class="progress"><div class="fill" id="fill"></div></div>
 <div class="controls"><button class="btn secondary" id="prev">← Əvvəlki</button><button class="btn" id="next">Növbəti →</button></div>
 <div class="score" id="score">Xal: 0 / 0</div>
-<div class="tip">💡 Qayda: Cavabı seçin. Düzgün cavab yaşıl, səhv cavab qırmızı göstərilir. Sonra “Növbəti” düyməsinə keçin.</div>
-</section>
-</div>
+<div class="tip">💡 Cavabı seçin. Düzgün cavab yaşıl, səhv cavab qırmızı göstərilir. Düzgün cavablar hər kartda müxtəlif mövqelərdə yerləşdirilib.</div>
+</section></div>
 <script>
 const cards=[
-['Sürətli seçim','Kommunikasiyanın əsas iki tipi hansıdır?',['Verbal və qeyri-verbal','Yazılı və rəsmi','Şifahi və akademik','Fərdi və kütləvi'],0],
-['Termin tap','“Verbal” sözü hansı mənanı verir?',['Səs','Söz','Hərəkət','Məsafə'],1],
-['Növünü müəyyən et','Telefon danışığı hansı kommunikasiya növünə aiddir?',['Qeyri-verbal','Yalnız jest','Verbal, şifahi','Proksemik'],2],
-['Növünü müəyyən et','E-mail ilə göndərilən məlumat hansı növdür?',['Verbal, yazılı','Qeyri-verbal','Yalnız mimika','Kinestik'],0],
+['Sürətli seçim','Kommunikasiyanın iki əsas tipi hansıdır?',['Yazılı və şifahi','Verbal və qeyri-verbal','Fərdi və kütləvi','Rəsmi və qeyri-rəsmi'],1],
+['Termin tap','“Verbal” sözü latın dilindən tərcümədə nə deməkdir?',['Hərəkət','Səs','Söz','Məsafə'],2],
+['Növünü müəyyən et','Telefon danışığı hansı kommunikasiya növünə aiddir?',['Verbal, şifahi','Proksemik','Qeyri-verbal','Yalnız jest'],0],
+['Növünü müəyyən et','E-mail vasitəsilə göndərilən məlumat hansı kommunikasiya növüdür?',['Qeyri-verbal','Kinestik','Verbal, yazılı','Yalnız mimika'],2],
 ['Doğru / yanlış','Yazılı nitq görmə vasitəsilə qavranılır.',['Doğru','Yanlış'],0],
-['Doğru / yanlış','Qeyri-verbal kommunikasiya yalnız danışıqdan ibarətdir.',['Doğru','Yanlış'],1],
-['Bədən dili','Əllərin və qolların hərəkətləri nə adlanır?',['Jestlər','Mimika','Xronemika','Proksemika'],0],
-['Bədən dili','Üz ifadələri ilə emosiyaların çatdırılması nədir?',['Jest','Mimika','Göz kontaktı','Toxunma'],1],
-['Bədən dili','Başın yuxarı-aşağı tərpədilməsi əksər ölkələrdə nə bildirir?',['Razılıq','Qəzəb','Gecikmə','Məsafə'],0],
-['Göz kontaktı','Göz kontaktının əsas funksiyalarından biri hansıdır?',['Marağı və diqqəti göstərmək','Vaxtı ölçmək','Geyimi seçmək','Mətni yazmaq'],0],
-['Göz kontaktı','Həddən artıq göz təması nə yarada bilər?',['Təzyiq və narahatlıq','Daha çox məsafə','Yazılı nitq','Sükut qaydası'],0],
-['Paraverbal','Səs tonu, ritmi, vurğusu və həcmi hansı sahəyə aiddir?',['Paraverbal kommunikasiya','Proksemika','Xronemika','Mimika'],0],
-['Paraverbal','“Sən bunu etdin” cümləsinin fərqli tonla deyilməsi nəyi dəyişə bilər?',['Emosional mənanı','Yazı formasını','Fiziki məsafəni','Geyimi'],0],
-['Paraverbal','Danışıqda pauza əsasən nəyi gücləndirə bilər?',['Vurğu və mənanı','Geyimi','Məsafəni','Əl sıxmanı'],0],
-['Proksemika','İntim məsafə hansı aralıqdır?',['0–45 sm','45 sm–1,2 m','1,2–3,6 m','3,6 m və daha çox'],0],
-['Proksemika','Şəxsi məsafə hansı aralıqdır?',['0–45 sm','45 sm–1,2 m','1,2–3,6 m','3,6 m və daha çox'],1],
-['Proksemika','Rəsmi çıxış və təqdimatlarda hansı məsafə daha uyğundur?',['İctimai məsafə','İntim məsafə','Yalnız şəxsi məsafə','Toxunma məsafəsi'],0],
-['Xronemika','Vaxtında görüşə gəlmək nəyi ifadə edə bilər?',['Hörmət və məsuliyyət','Laqeydlik','Qapalılıq','Qəzəb'],0],
-['Xronemika','Vaxtdan istifadə və münasibətlər arasındakı əlaqəni öyrənən vasitə hansıdır?',['Xronemika','Mimika','Jest','Kinestika'],0],
-['Görünüş','Səliqəli və uyğun geyim ilk növbədə nəyə təsir edə bilər?',['İlk təəssürata','Telefon siqnalına','Mətnin uzunluğuna','Pauzanın sayına'],0],
-['Vəziyyəti tap','İş görüşündə qolları və ayaqları çarpazlamaq hansı məna verə bilər?',['Müdafiə və qapalılıq','Mütləq sevinc','Vaxtında gəlmək','Yazılı ünsiyyət'],0],
-['Vəziyyəti tap','Həmsöhbəti anladığını göstərmək üçün başla yüngül təsdiq etmək nədir?',['Qeyri-verbal siqnal','Yazılı kommunikasiya','Orfoqrafik qayda','Xronemika'],0],
-['Mədəniyyət','Bir jestin müxtəlif ölkələrdə fərqli məna verməsi nəyi göstərir?',['Qeyri-verbal kommunikasiyanın mədəni xüsusiyyətini','Yazılı nitqin üstünlüyünü','Şifahi dilin yoxluğunu','Qrammatik fərqi'],0],
-['Mədəniyyət','Başı yuxarı-aşağı tərpətmək Bolqarıstan və Albaniyada verilən nümunəyə görə nə ifadə edə bilər?',['“Yox”','“Bəli”','Salam','Təşəkkür'],0],
-['Final challenge','Söz “hər şey yaxşıdır” deyilir, amma danışanın üzü gərgindir. Hansı mesaj daha çox ziddiyyət yaradır?',['Qeyri-verbal mesaj','Yazılı mesaj','Orfoqrafiya','Məsafə'],0]
+['Doğru / yanlış','Qeyri-verbal kommunikasiya yalnız sözlərlə həyata keçirilir.',['Doğru','Yanlış'],1],
+['Bədən dili','Əllərin və qolların hərəkətləri nə adlanır?',['Mimika','Jestlər','Xronemika','Proksemika'],1],
+['Bədən dili','Üz ifadələri ilə sevinc, kədər, qorxu və qəzəbin çatdırılması nədir?',['Toxunma','Göz kontaktı','Mimika','Xronemika'],2],
+['Bədən dili','Baş hərəkətləri hansı qeyri-verbal vasitəyə daxildir?',['Bədən dili','Yazılı nitq','Orfoqrafiya','Proksemika'],0],
+['Göz kontaktı','Göz kontaktı əsasən nəyi əks etdirir?',['Vaxtı','Marağı, diqqəti və hörməti','Geyimi','Fiziki məsafəni'],1],
+['Göz kontaktı','Həddən artıq göz təması nə yarada bilər?',['Təzyiq və narahatlıq','Mütləq sevinc','Yazılı ünsiyyət','Daha yaxşı məsafə'],0],
+['Paraverbal','Səsin tonu, ritmi, vurğusu və həcmi hansı sahəyə aiddir?',['Proksemika','Xronemika','Paraverbal kommunikasiya','Mimika'],2],
+['Paraverbal','Eyni sözün fərqli tonla deyilməsi nəyi dəyişə bilər?',['Fiziki məsafəni','Emosional mənanı','Geyimin formasını','Yazının qrafikasını'],1],
+['Paraverbal','Danışıqda pauzalar əsasən nəyi gücləndirir?',['Vurğunu və mənanı','Geyimi','Əl sıxmanı','Məsafəni'],0],
+['Proksemika','Şəxsi məsafə hansı aralıqdır?',['0–45 sm','1,2–3,6 m','45 sm–1,2 m','3,6 m və daha çox'],2],
+['Proksemika','Sosial məsafə hansı aralıqdır?',['3,6 m və daha çox','1,2–3,6 m','45 sm–1,2 m','0–45 sm'],1],
+['Proksemika','Rəsmi çıxış və təqdimatlarda hansı məsafədən istifadə edilir?',['İctimai məsafə','İntim məsafə','Şəxsi məsafə','Toxunma məsafəsi'],0],
+['Toxunma','Əl sıxmaq və ya çiyinə toxunmaq nəyi ifadə edə bilər?',['Yazılı nitqi','Münasibəti və emosiyanı','Vaxtı','Orfoqrafiyanı'],1],
+['Xronemika','Vaxtında görüşə gəlmək nəyi ifadə edə bilər?',['Hörmət və məsuliyyəti','Laqeydliyi','Qapalılığı','Qəzəbi'],0],
+['Xronemika','Vaxtdan istifadəni və bunun münasibətlərə təsirini ifadə edən anlayış hansıdır?',['Mimika','Kinestika','Xronemika','Proksemika'],2],
+['Görünüş','Səliqəli və uyğun geyim ilk təəssürata necə təsir edir?',['Heç bir təsir etmir','Mənfi təsir edir','İlk təəssüratı formalaşdırmağa kömək edir','Yalnız səs tonunu dəyişir'],2],
+['İş görüşü','İş görüşündə qolları və ayaqları çarpazlamaq hansı məna verə bilər?',['Müdafiə və qapalılıq','Mütləq sevinc','Punktuallıq','Yazılı kommunikasiya'],0],
+['Mədəniyyət','Eyni jestin müxtəlif ölkələrdə fərqli məna verməsi nəyi göstərir?',['Qrammatik fərqi','Qeyri-verbal kommunikasiyanın mədəni xüsusiyyətini','Yazılı nitqin üstünlüyünü','Səsin həcmini'],1],
+['Mədəniyyət','Verilən məlumata görə başı yuxarı-aşağı tərpətmək Bolqarıstan və Albaniyada nə ifadə edə bilər?',['“Bəli”','Salam','“Yox”','Təşəkkür'],2],
+['Final challenge','Bir insan “hər şey yaxşıdır” deyir, amma üzü gərgindir. Bu halda sözlə ziddiyyət yaradan hansı mesajdır?',['Qeyri-verbal mesaj','Yazılı mesaj','Orfoqrafik mesaj','Proksemik məsafə'],0]
 ];
 let i=0,score=0,answered=0;const q=document.getElementById('question'),a=document.getElementById('answers'),r=document.getElementById('result');
 function render(){let c=cards[i];document.getElementById('cardNo').textContent=`KART ${i+1} / ${cards.length}`;document.getElementById('type').textContent=c[0];q.textContent=c[1];a.innerHTML='';r.textContent='';c[2].forEach((x,n)=>{let b=document.createElement('button');b.className='ans';b.textContent=x;b.onclick=()=>answer(n,b);a.appendChild(b)});document.getElementById('fill').style.width=((i+1)/cards.length*100)+'%';document.getElementById('score').textContent=`Xal: ${score} / ${answered}`;document.getElementById('prev').disabled=i===0;document.getElementById('next').textContent=i===cards.length-1?'Yenidən başla →':'Növbəti →'}
 function answer(n,b){let buttons=[...a.children];buttons.forEach(x=>x.disabled=true);let correct=cards[i][3];if(n===correct){b.classList.add('correct');r.textContent='✅ Əla! Düzgün cavab.';score++}else{b.classList.add('wrong');buttons[correct].classList.add('correct');r.textContent='❌ Səhv cavab. Yaşıl variant düzgündür.'}answered++;document.getElementById('score').textContent=`Xal: ${score} / ${answered}`}
 document.getElementById('next').onclick=()=>{if(i===cards.length-1){i=0;score=0;answered=0}else i++;render()};document.getElementById('prev').onclick=()=>{if(i>0){i--;render()}};render();
-</script>
-</body></html>
+</script></body></html>
